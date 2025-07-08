@@ -1,0 +1,114 @@
+
+Movie Ticket booking system
+ 
+		1) Search movie: like, pagination
+		2) Book tickets:
+				I can select multiple tickets, while booking randomly you will get seat number.
+				when you will book ticket payment will be deducted from bankApp which you have already created and you need to do fund transfer, to implement it use feign client.
+		3) Booking history
+		
+____________________________________________________
+
+History API: 
+Get:   localhost:8080/api/bookings/user/1
+
+GET localhost:8080/api/bookings/user/1?page=0&size=5
+
+Response:
+[
+    {
+        "bookingId": 1,
+        "showId": 1,
+        "totalTickets": 2,
+        "seatNumbers": [
+            "A1",
+            "A2"
+        ],
+        "status": "BOOKED",
+        "bookingTime": "2025-07-07T15:25:43"
+    }
+]
+
+______________________________________________
+
+[
+    {
+        "bookingId": 8,
+        "showId": 1,
+        "totalTickets": 2,
+        "seatNumbers": [
+            "A1",
+            "A2"
+        ],
+        "status": "BOOKED",
+        "bookingTime": "2025-07-07T12:30:00"
+    },
+    {
+        "bookingId": 9,
+        "showId": 1,
+        "totalTickets": 1,
+        "seatNumbers": [
+            "B1"
+        ],
+        "status": "CANCELLED",
+        "bookingTime": "2025-06-30T15:00:00"
+    }
+]
+
+
+
+________________________________________________________________
+
+
+
+-- Insert user
+INSERT INTO users (name, email, phone, created_at)
+VALUES ('Test User', 'test@example.com', '9999999999', NOW());
+
+-- Assume user_id = 1
+
+-- Insert movie and show
+INSERT INTO movie (title, description, genre, language, duration_min, release_date)
+VALUES ('Matrix', 'Sci-fi', 'Action', 'English', 120, '2000-01-01');
+
+-- movie_id = 1
+
+INSERT INTO shows (movie_id, show_time, total_seats, available_seats)
+VALUES (1, '2025-07-08 20:00:00', 100, 98);
+
+-- show_id = 1
+
+-- Insert 2 bookings for same user
+INSERT INTO bookings (user_id, show_id, seat_numbers, total_tickets, status, booking_time, total_price)
+VALUES 
+(1, 1, 'A1,A2', 2, 'BOOKED', '2025-07-07 12:30:00', 500),
+(1, 1, 'B1', 1, 'CANCELLED', '2025-06-30 15:00:00', 250);
+
+
+
+__________________________________________________________________________
+
+Search API:
+localhost:8080/api/movies/search?page=0&size=5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
